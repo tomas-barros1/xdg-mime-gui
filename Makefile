@@ -1,5 +1,5 @@
 APP_NAME     := xdg-mime-gui
-DESKTOP_FILE := com.example.default-apps.desktop
+DESKTOP_FILE := io.github.tomas_barros1.DefaultApps.desktop
 PREFIX       ?= /usr/local
 BINDIR       ?= $(PREFIX)/bin
 DATADIR      ?= $(PREFIX)/share

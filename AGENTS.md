@@ -18,7 +18,7 @@ make run                    # cargo run
 
 ## Key architecture
 
-- **Entrypoint:** `src/main.rs` → `src/application.rs` (`com.example.default-apps`) → `src/window.rs`
+- **Entrypoint:** `src/main.rs` → `src/application.rs` (`io.github.tomas_barros1.DefaultApps`) → `src/window.rs`
 - **Layers:** `models/` → `services/` → `ui/` (widgets + pages) → `window.rs`
 - **Backend:** Uses `gio::AppInfo` APIs exclusively (no manual `mimeapps.list` editing)
 - **MIME types:** Tried in fallback order per entry (e.g. `audio/flac` → `audio/x-flac`). `get_default_for_types()` and `get_available_all()` in `services/default_apps.rs` handle multi-type lookup.
@@ -33,5 +33,5 @@ make run                    # cargo run
 
 ## Files of note
 
-- `com.example.default-apps.desktop` — launcher, installs via `make install`
+- `io.github.tomas_barros1.DefaultApps.desktop` — launcher, installs via `make install`
 - `locales/*.json` — translations, add a new locale by creating the JSON and importing it in `src/i18n.rs`
