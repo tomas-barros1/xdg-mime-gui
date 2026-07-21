@@ -29,7 +29,7 @@ make run                    # cargo run
 - **Row refresh after set-default** happens directly in the dialog callback via a captured `ActionRow` clone in `page_builder.rs`. No global refresh mechanism.
 - **Search** switches the stack to the `"all"` page automatically. On clear, returns to the previously selected category. Sidebar clicks are ignored while search has text.
 - **Crate aliases:** `gtk = { package = "gtk4" }`, `adw = { package = "libadwaita" }`. Use `gtk::*` and `adw::*` in code.
-- **Feature flags:** `gtk/v4_22`, `adw/v1_9`, `gio/v2_82` — keep in sync with system library versions.
+- **Feature flags:** `gtk/v4_14`, `adw/v1_5`, `gio/v2_80` — keep in sync with system library versions.
 
 ## Files of note
 
