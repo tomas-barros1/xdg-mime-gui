@@ -13,7 +13,7 @@ A beautiful, modern Linux desktop application built with **Rust + GTK4 + libadwa
 
 ## Screenshots
 
-> _Coming soon_
+![Default Applications Screenshot](docs/1.png)
 
 ## Building
 
@@ -28,8 +28,8 @@ A beautiful, modern Linux desktop application built with **Rust + GTK4 + libadwa
 ### Build from source
 
 ```bash
-git clone https://github.com/your-username/default-apps.git
-cd default-apps
+git clone https://github.com/tomas-barros1/xdg-mime-gui.git
+cd xdg-mime-gui
 cargo build --release
 ```
 
