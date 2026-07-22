@@ -7,6 +7,8 @@ use crate::models::mime_type::CategoryEntry;
 use crate::services::default_apps::get_default_for_types;
 use crate::ui::widgets::app_dialog::show_app_selection_dialog;
 
+use crate::services::observer::EntryObserverBus;
+
 pub fn build_entry_page(description: &str, entries: Vec<CategoryEntry>) -> PreferencesPage {
     let page = PreferencesPage::new();
     let group = PreferencesGroup::new();
@@ -46,16 +48,21 @@ fn create_entry_row(entry: CategoryEntry) -> ActionRow {
     row.add_suffix(&button);
     row.set_activatable_widget(Some(&button));
 
-    let row_for_dialog = row.clone();
+    // Register observer for this entry_id so all instances of this row across all pages update automatically
+    let row_for_observer = row.clone();
+    let mime_types_for_observer = mime_types.clone();
+    EntryObserverBus::global().subscribe(entry.id, move || {
+        if let Some(default) = get_default_for_types(&mime_types_for_observer) {
+            row_for_observer.set_subtitle(&default.name);
+        } else {
+            row_for_observer.set_subtitle(&t("not_set"));
+        }
+    });
+
+    let entry_id = entry.id;
     button.connect_clicked(move |btn| {
-        let row = row_for_dialog.clone();
-        let mime_types = mime_types.clone();
         show_app_selection_dialog(btn, &entry, move |_app| {
-            if let Some(default) = get_default_for_types(&mime_types) {
-                row.set_subtitle(&default.name);
-            } else {
-                row.set_subtitle(&t("not_set"));
-            }
+            EntryObserverBus::global().notify(entry_id);
         });
     });
 

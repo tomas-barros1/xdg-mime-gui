@@ -132,13 +132,19 @@ pub fn show_app_selection_dialog(
 
     set_button.connect_clicked({
         let dialog = dialog.clone();
-        let mime_type = entry.mime_types[0].to_string();
+        let mime_types = entry.mime_types.clone();
         move |_| {
             let app_data = selected_app.borrow().clone();
-            if let Some(app_data) = app_data
-                && set_default(&app_data.gio_app, &mime_type).is_ok()
-            {
-                on_set(app_data.gio_app.clone());
+            if let Some(app_data) = app_data {
+                let mut success = false;
+                for mt in &mime_types {
+                    if set_default(&app_data.gio_app, mt).is_ok() {
+                        success = true;
+                    }
+                }
+                if success {
+                    on_set(app_data.gio_app.clone());
+                }
             }
             dialog.close();
         }
